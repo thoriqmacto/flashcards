@@ -1,0 +1,47 @@
+type: edu
+files:
+  - name: test/FlashcardsTest.java
+    visible: false
+    text: "import org.hyperskill.hstest.stage.StageTest;\nimport org.hyperskill.hstest.testcase.CheckResult;\n\
+    import org.hyperskill.hstest.testcase.TestCase;\nimport org.hyperskill.hstest.testing.TestedProgram;\n\
+    \nimport java.util.List;\n\npublic class FlashcardsTest extends StageTest<String>\
+    \ {\n    private static final List<String[]> flashcards = List.of(\n         \
+    \   new String[] { \"brusque\", \"short and abrupt\" },\n            new String[]\
+    \ { \"(a + b)^2\", \"a^2 + b^2 + 2ab\" }\n    );\n    \n    @Override\n    public\
+    \ List<TestCase<String>> generate() {\n        return flashcards.stream().map((flashcard)\
+    \ -> new TestCase<String>()\n                .setDynamicTesting(() -> {\n    \
+    \                TestedProgram main = new TestedProgram();\n                 \
+    \   String output;\n\n                    output = main.start().toLowerCase();\n\
+    \                    if (!output.trim().startsWith(\"card:\")) {\n           \
+    \             return CheckResult.wrong(\"Your program should print \\\"Card:\\\
+    \" as the first line\");\n                    }\n\n                    if (main.isFinished())\n\
+    \                        return CheckResult.wrong(\"Your program should wait for\
+    \ user input\");\n\n                    String term = flashcard[0];\n        \
+    \            output = main.execute(term).toLowerCase();\n                    String[]\
+    \ lines = output.trim().split(\"\\n\");\n                    if (lines.length\
+    \ < 1 || !lines[0].trim().equals(term)) {\n                        return CheckResult.wrong(\"\
+    Your program should print the term provided as input on the second line\");\n\
+    \                    }\n\n                    if (lines.length < 2 || !lines[1].trim().equals(\"\
+    definition:\")) {\n                        return CheckResult.wrong(\"Your program\
+    \ should print \\\"Definition:\\\" as the third line\");\n                   \
+    \ }\n\n                    if (main.isFinished())\n                        return\
+    \ CheckResult.wrong(\"Your program should wait for user input\");\n\n        \
+    \            String definition = flashcard[1];\n                    output = main.execute(definition).toLowerCase();\n\
+    \n                    if (!output.trim().startsWith(definition)) {\n         \
+    \               return CheckResult.wrong(\"Your program should print the definition\
+    \ provided as input on the fourth line\");\n                    }\n\n        \
+    \            return CheckResult.correct();\n                })\n        ).toList();\n\
+    \    }\n    \n}\n"
+    learner_created: false
+  - name: src/flashcards/Main.kt
+    visible: true
+    text: |
+      package flashcards
+      
+      fun main() {
+          println("Hello, World!")
+      }
+    learner_created: false
+feedback_link: https://hyperskill.org/learn/step/7486#comment
+status: Unchecked
+record: -1
