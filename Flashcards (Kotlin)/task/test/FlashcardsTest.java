@@ -1,55 +1,122 @@
+import org.hyperskill.hstest.dynamic.input.DynamicTestingMethod;
 import org.hyperskill.hstest.stage.StageTest;
 import org.hyperskill.hstest.testcase.CheckResult;
 import org.hyperskill.hstest.testcase.TestCase;
 import org.hyperskill.hstest.testing.TestedProgram;
 
+
+import java.util.Arrays;
 import java.util.List;
 
 public class FlashcardsTest extends StageTest<String> {
-    private static final List<String[]> flashcards = List.of(
-            new String[] { "brusque", "short and abrupt" },
-            new String[] { "(a + b)^2", "a^2 + b^2 + 2ab" }
-    );
     
-    @Override
-    public List<TestCase<String>> generate() {
-        return flashcards.stream().map((flashcard) -> new TestCase<String>()
-                .setDynamicTesting(() -> {
-                    TestedProgram main = new TestedProgram();
-                    String output;
-
-                    output = main.start().toLowerCase();
-                    if (!output.trim().startsWith("card:")) {
-                        return CheckResult.wrong("Your program should print \"Card:\" as the first line");
-                    }
-
-                    if (main.isFinished())
-                        return CheckResult.wrong("Your program should wait for user input");
-
-                    String term = flashcard[0];
-                    output = main.execute(term).toLowerCase();
-                    String[] lines = output.trim().split("\n");
-                    if (lines.length < 1 || !lines[0].trim().equals(term)) {
-                        return CheckResult.wrong("Your program should print the term provided as input on the second line");
-                    }
-
-                    if (lines.length < 2 || !lines[1].trim().equals("definition:")) {
-                        return CheckResult.wrong("Your program should print \"Definition:\" as the third line");
-                    }
-
-                    if (main.isFinished())
-                        return CheckResult.wrong("Your program should wait for user input");
-
-                    String definition = flashcard[1];
-                    output = main.execute(definition).toLowerCase();
-
-                    if (!output.trim().startsWith(definition)) {
-                        return CheckResult.wrong("Your program should print the definition provided as input on the fourth line");
-                    }
-
-                    return CheckResult.correct();
-                })
-        ).toList();
+    //Test 1, in this case the user gets the correct definition, same as test 2
+    @DynamicTestingMethod
+    CheckResult test1() {
+        TestedProgram main = new TestedProgram();
+        String output;
+        
+        main.start();
+        
+        if (main.isFinished()) {
+            return CheckResult.wrong("Your program should wait for user input");
+        }
+        
+        main.execute("print()");
+        main.execute("outputs text");
+        output = main.execute("outputs text").toLowerCase();
+        
+        if (output.equals("") || output.matches("\\s+")) {
+            return CheckResult.wrong("Your program does not provide feedback to the user");
+        }
+        
+        if (!output.contains("your answer is right!")) {
+            return CheckResult.wrong("Your output should be \"your answer is right!\" if the user gets the definition");
+        }
+        
+        return CheckResult.correct();
+        
+    }
+    
+    @DynamicTestingMethod
+    CheckResult test2() {
+        TestedProgram main = new TestedProgram();
+        String output;
+        
+        main.start();
+    
+        if (main.isFinished()) {
+            return CheckResult.wrong("Your program should wait for user input");
+        }
+        
+        main.execute("Dog");
+        main.execute("A barking animal");
+        output = main.execute("A barking animal").toLowerCase();
+        
+        if (output.equals("") || output.matches("\\s+")) {
+            return CheckResult.wrong("Your program does not provide feedback to the user");
+        }
+        
+        if (!output.contains("your answer is right!")) {
+            return CheckResult.wrong("Your output should be \"your answer is right!\" if the user gets the definition");
+        }
+        
+        return CheckResult.correct();
+        
+    }
+    //Test 3, in this case the user fails the definition, same as test 4
+    @DynamicTestingMethod
+    CheckResult test3() {
+        TestedProgram main = new TestedProgram();
+        String output;
+        
+        main.start();
+    
+        if (main.isFinished()) {
+            return CheckResult.wrong("Your program should wait for user input");
+        }
+        
+        main.execute("Jetbrains");
+        main.execute("A place for people who love to code");
+        output = main.execute("A place for people who hate to code").toLowerCase();
+    
+        if (output.equals("") || output.matches("\\s+")) {
+            return CheckResult.wrong("Your program does not provide feedback to the user");
+        }
+        
+        if (!output.contains("your answer is wrong...")) {
+            return CheckResult.wrong("Your output should be \"your answer is wrong...\" if the user fails the definition");
+        }
+        
+        return CheckResult.correct();
+        
+    }
+    
+    @DynamicTestingMethod
+    CheckResult test4() {
+        TestedProgram main = new TestedProgram();
+        String output;
+        
+        main.start();
+    
+        if (main.isFinished()) {
+            return CheckResult.wrong("Your program should wait for user input");
+        }
+        
+        main.execute("Cat");
+        main.execute("A barking animal");
+        output = main.execute("A purring animal").toLowerCase();
+        
+        if (output.equals("") || output.matches("\\s+")) {
+            return CheckResult.wrong("Your program does not provide feedback to the user");
+        }
+        
+        if (!output.contains("your answer is wrong...")) {
+            return CheckResult.wrong("Your output should be \"your answer is wrong...\" if the user fails the definition");
+        }
+        
+        return CheckResult.correct();
+        
     }
     
 }
