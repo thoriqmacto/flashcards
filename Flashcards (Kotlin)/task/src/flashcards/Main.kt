@@ -21,11 +21,27 @@ class Flashcards {
     private fun promptUser() {
         // fill in the cardsList
         for (i in 1..numCards){
+            // input Card
             println("Card #$i:")
-            val card = readln()
+            var card = readln()
+
+            while (cardsList.containsKey(card)) {
+                println("The term \"$card\" already exists. Try again:")
+                card = readln()
+            }
+
+            // input definition
             println("The definition for card #$i:")
-            val definition = readln()
-            cardsList += card to definition
+            var definition = readln()
+
+            while (cardsList.containsValue(definition)){
+                println("The definition \"$definition\" already exists. Try again:")
+                definition = readln()
+            }
+
+            if (!cardsList.containsKey(card) && !cardsList.containsValue(definition)) {
+                cardsList += card to definition
+            }
         }
 
         // spit out the cardsList
@@ -35,8 +51,16 @@ class Flashcards {
             if (answer == v) {
                 println("Correct!")
             } else {
-                println("Wrong. The right answer is \"$v\".")
+                if(cardsList.containsValue(v)){
+                    println("Wrong. The right answer is \"$v\", but your definition is correct for \"${cardsList.getKeyByValue(answer)}\".")
+                }else {
+                    println("Wrong. The right answer is \"$v\".")
+                }
             }
         }
+    }
+
+    private fun <K, V> MutableMap<K, V>.getKeyByValue(value: V): K? {
+        return this.entries.find { it.value == value }?.key
     }
 }
