@@ -416,5 +416,8 @@ files:
     \n\n\n\n\n"
     learner_created: false
 feedback_link: https://hyperskill.org/learn/step/7490#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: Congratulations!
+  time: "Wed, 13 Dec 2023 12:08:26 UTC"
 record: -1
