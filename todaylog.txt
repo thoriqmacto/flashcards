@@ -1,0 +1,96 @@
+Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):
+add
+The card:
+France
+The definition of the card:
+Paris
+The pair ("France":"Paris") has been added.
+Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):
+ask
+How many times to ask?
+3
+Print the definition of "France":
+asdfa
+Wrong. The right answer is "Paris".
+Print the definition of "France":
+asdf
+Wrong. The right answer is "Paris".
+Print the definition of "France":
+asdf
+Wrong. The right answer is "Paris".
+Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):
+import
+File name:
+Capitals.txt
+4 cards have been loaded
+Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):
+hardest card
+The hardest card is "France". You have 3 errors answering it.
+Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):
+ask 3
+Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):
+ask
+How many times to ask?
+3
+Print the definition of "Russia":
+Moskow
+Correct!
+Print the definition of "Indonesia":
+Plaju
+Wrong. The right answer is "Jakarta".
+Print the definition of "France":
+Paris
+Correct!
+Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):
+ask
+How many times to ask?
+3
+Print the definition of "France":
+Paris
+Correct!
+Print the definition of "Russia":
+Moskow
+Correct!
+Print the definition of "France":
+Paris
+Correct!
+Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):
+ask
+How many times to ask?
+3
+Print the definition of "Russia":
+Moskow
+Correct!
+Print the definition of "France":
+Paris
+Correct!
+Print the definition of "France":
+Paris
+Correct!
+Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):
+ask
+How many times to ask?
+5
+Print the definition of "Russia":
+Moskow
+Correct!
+Print the definition of "Indonesia":
+Tuban
+Wrong. The right answer is "Jakarta".
+Print the definition of "France":
+Paris
+Correct!
+Print the definition of "Indonesia":
+Berlin
+Wrong. The right answer is "Jakarta", but your definition is correct for "Germany".
+Print the definition of "Russia":
+Moskow
+Correct!
+Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):
+hardest card
+The hardest card is "France, Indonesia". You have 3 errors answering it.
+Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):
+log
+File name:
+todaylog.txt
+The log has been saved.

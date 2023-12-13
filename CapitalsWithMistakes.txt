@@ -1,0 +1,4 @@
+Indonesia:Jakarta:4
+Russia:Moskow:3
+France:Paris:4
+Germany:Berlin:2
