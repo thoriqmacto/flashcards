@@ -4,9 +4,21 @@ import java.io.File
 import java.io.FileWriter
 import kotlin.random.Random
 
-fun main() {
+fun main(args:Array<String>) {
     val game = Flashcards()
-    game.start()
+
+    var importFile: String? = null
+    var exportFile: String? = null
+
+    args.forEachIndexed { index, arg ->
+        when (arg) {
+            "-import" -> importFile = args.getOrNull(index + 1)
+            "-export" -> exportFile = args.getOrNull(index + 1)
+        }
+    }
+
+    game.start(importFile)
+    game.end(exportFile)
 }
 
 class Flashcards {
@@ -24,7 +36,9 @@ class Flashcards {
     private var numAsk = 0
     private var cardsError = mutableMapOf<String,Int>()
 
-    fun start() {
+    fun start(importFile:String?) {
+        importFile?.let { importFile(it) }
+
         while (promptChoice != "exit") {
             promptUser()
         }
@@ -41,8 +55,22 @@ class Flashcards {
         when(promptChoice){
             "add"           -> { addCardToCardsList() }
             "remove"        -> { removeCard() }
-            "export"        -> { exportFile() }
-            "import"        -> { importFile() }
+            "export"        -> {
+                println("File name:")
+                logList.add("File name:")
+
+                val exportFileName = readln()
+                logList.add(exportFileName)
+                exportFile(exportFileName)
+            }
+            "import"        -> {
+                println("File name:")
+                logList.add("File name:")
+
+                val importFileName = readln()
+                logList.add(importFileName)
+                importFile(importFileName)
+            }
             "ask"           -> { askCard() }
             "log"           -> { logToFile() }
             "hardest card"  -> { hardestCard() }
@@ -169,13 +197,7 @@ class Flashcards {
         }
     }
 
-    private fun exportFile() {
-        println("File name:")
-        logList.add("File name:")
-
-        val exportFileName = readln()
-        logList.add(exportFileName)
-
+    private fun exportFile(exportFileName:String) {
         try {
             val filePathExport = "${folderPath}${exportFileName}"
             val file = File(filePathExport)
@@ -203,13 +225,7 @@ class Flashcards {
         }
     }
 
-    private fun importFile(){
-        println("File name:")
-        logList.add("File name:")
-
-        val importFileName = readln()
-        logList.add(importFileName)
-
+    private fun importFile(importFileName:String){
         try {
             val filePathImport = "${folderPath}${importFileName}"
             val file = File(filePathImport)
@@ -307,5 +323,9 @@ class Flashcards {
 
     private fun <K, V> MutableMap<K, V>.getKeyByValue(value: V): K? {
         return this.entries.find { it.value == value }?.key
+    }
+
+    fun end(exportFile: String?) {
+        exportFile?.let { exportFile(it) }
     }
 }

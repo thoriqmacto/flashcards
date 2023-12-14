@@ -637,6 +637,13 @@ files:
     \   \"London\",\n                \"Abuja\",\n                \"Berlin\"\n    \
     \    );\n    }\n    \n}\n"
     learner_created: false
+  - name: fridayThe13th.txt
+    visible: true
+    learner_created: true
 feedback_link: https://hyperskill.org/learn/step/7492#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: Well done! You've finished the project. Select a new project on <a href="https://hyperskill.org/projects">Hyperskill</a>
+    to continue learning.
+  time: "Thu, 14 Dec 2023 10:50:25 UTC"
 record: -1
